@@ -1,8 +1,12 @@
 package dev.felnull.dynamos;
 
+import dev.felnull.dynamos.items.DynamosBlocks;
+import dev.felnull.dynamos.items.DynamosItems;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 
 @EventBusSubscriber(modid = Dynamos.MODID)
@@ -13,8 +17,12 @@ public class DynamosCreativeTabEvents {
             //-------------------------------------------------------------
             //ここにメインクリエタブに追加したいアイテムを追加していってね
             //-------------------------------------------------------------
-            event.accept(DynamosItems.BASIC_GEAR.get());
-            event.accept(DynamosBlocks.TEST_BLOCK.get().asItem());
+            for (DeferredItem<?> item : DynamosItems.getFlatItems()) {
+                event.accept(item.get().asItem());
+            }
+            for (DeferredBlock<?> block : DynamosBlocks.getTrivialBlocks()) {
+                event.accept(block.get().asItem());
+            }
             //-------------------------------------------------------------
         }
     }
