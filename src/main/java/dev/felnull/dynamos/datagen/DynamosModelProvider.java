@@ -48,12 +48,8 @@ public class DynamosModelProvider extends ModelProvider {
 
         // 色付きIngot対応モデル
         for (DynamosIngot ingot : DynamosIngot.values()) {
-            System.out.println("ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲ");
             DeferredItem<Item> item = DynamosItems.getIngotItem(ingot);
-            //itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
             generateColoredItemModel(itemModels, item.get(), "ingot_base", ingot.color.getRGB());
-
-           // itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
         }
 
     }

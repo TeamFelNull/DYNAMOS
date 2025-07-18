@@ -1,10 +1,13 @@
 package dev.felnull.dynamos.items;
 
 import dev.felnull.dynamos.Dynamos;
+import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.ArrayList;
@@ -20,9 +23,21 @@ public class DynamosBlocks {
     //-------------------------------------------------------------
     // ここに機能なしのブロックを追加
     //-------------------------------------------------------------
+    private static final List<DynamosBlockEntry<?, ?>> ENTRIES = List.of(
+            DynamosBlockEntry.simple(
+                    "test_block",
+                    BlockBehaviour.Properties.of().strength(1.0f).ignitedByLava().requiresCorrectToolForDrops().sound(SoundType.ANVIL)
+            ),
+            DynamosBlockEntry.simple(
+                    "test_block2",
+                    BlockBehaviour.Properties.of().strength(1.0f).ignitedByLava().requiresCorrectToolForDrops().sound(SoundType.ANVIL)
+            )
+    );
+
+
     public static void init() {
-        for (DynamosBlockEnum block : DynamosBlockEnum.values()) {
-            registerBlockWithItem(block.itemName, block.properties);
+        for (DynamosBlockEntry<?, ?> block : ENTRIES) {
+            registerBlockWithItem(block.name, block.properties);
         }
     }
     //-------------------------------------------------------------

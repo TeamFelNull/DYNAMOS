@@ -1,7 +1,5 @@
 package dev.felnull.dynamos;
 
-import dev.felnull.dynamos.items.DynamosBlockEnum;
-import dev.felnull.dynamos.items.DynamosBlocks;
 import dev.felnull.dynamos.items.DynamosItemEnum;
 import dev.felnull.dynamos.items.DynamosItems;
 import net.minecraft.core.registries.Registries;

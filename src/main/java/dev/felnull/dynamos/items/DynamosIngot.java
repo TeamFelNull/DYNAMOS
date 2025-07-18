@@ -13,5 +13,4 @@ public enum DynamosIngot {
         this.itemName = name;
         this.color = color;
     }
-
 }
