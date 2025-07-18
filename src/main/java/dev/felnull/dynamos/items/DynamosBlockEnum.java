@@ -22,8 +22,8 @@ public enum DynamosBlockEnum {
     }
 
     public void register() {
-        this.block = Dynamos.BLOCKS.register(itemName, () -> new Block(properties));
-        Dynamos.ITEMS.register(itemName, () -> new BlockItem(block.get(), new Item.Properties()));
+        this.block = Dynamos.BLOCKS.registerSimpleBlock(itemName, properties);
+        Dynamos.ITEMS.registerSimpleBlockItem(itemName, block);
     }
 
     public DeferredBlock<Block> getBlock() {

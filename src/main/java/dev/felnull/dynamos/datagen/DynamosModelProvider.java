@@ -20,6 +20,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -42,13 +43,17 @@ public class DynamosModelProvider extends ModelProvider {
         // Block（トリビアル）用モデル
         for (DeferredBlock<?> block : DynamosBlocks.getTrivialBlocks()) {
             blockModels.createTrivialBlock(block.get(), TexturedModel.CUBE);
-            itemModels.generateFlatItem(block.get().asItem(), ModelTemplates.FLAT_ITEM);
+            // itemModels.generateFlatItem(block.get().asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         // 色付きIngot対応モデル
         for (DynamosIngot ingot : DynamosIngot.values()) {
+            System.out.println("ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲ");
             DeferredItem<Item> item = DynamosItems.getIngotItem(ingot);
+            //itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
             generateColoredItemModel(itemModels, item.get(), "ingot_base", ingot.color.getRGB());
+
+           // itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
         }
 
     }
@@ -59,24 +64,6 @@ public class DynamosModelProvider extends ModelProvider {
     }
 
     public void generateColoredItemModel(ItemModelGenerators itemModels, Item item, String textureName, int rgbColor) {
-        ResourceLocation textureLoc = ResourceLocation.fromNamespaceAndPath(Dynamos.MODID, "item/" + textureName);
-
-        ModelInstance instance = () -> {
-            JsonObject json = new JsonObject();
-            json.addProperty("parent", "item/generated");
-
-            JsonObject textures = new JsonObject();
-            textures.addProperty("layer0", textureLoc.toString());
-            json.add("textures", textures);
-
-            return json;
-        };
-
-        itemModels.modelOutput.accept(BuiltInRegistries.ITEM.getKey(item), instance);
+        itemModels.generateDyedItem(item,rgbColor );
     }
-
-
-
-
-
 }

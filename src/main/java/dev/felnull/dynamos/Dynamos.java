@@ -21,15 +21,17 @@ public class Dynamos {
         BLOCKS.register(modEventBus);
         modEventBus.addListener(Dynamos::onRegister);
         DynamosCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        DynamosItems.init();
+        DynamosBlocks.init();
     }
 
     private static void onRegister(RegisterEvent event) {
         if (event.getRegistryKey().equals(Registries.ITEM)) {
-            DynamosItems.init(); // DeferredItem<Item> の登録
+            //DynamosItems.init(); // DeferredItem<Item> の登録
         }
 
         if (event.getRegistryKey().equals(Registries.BLOCK)) {
-            DynamosBlocks.init(); // DeferredBlock<Block> の登録（必要なら）
+            //DynamosBlocks.init(); // DeferredBlock<Block> の登録（必要なら）
         }
     }
 }

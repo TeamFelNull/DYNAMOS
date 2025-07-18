@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class DynamosBlocks {
 
@@ -21,14 +22,15 @@ public class DynamosBlocks {
     //-------------------------------------------------------------
     public static void init() {
         for (DynamosBlockEnum block : DynamosBlockEnum.values()) {
-            block.register();
+            registerBlockWithItem(block.itemName, block.properties);
         }
     }
     //-------------------------------------------------------------
 
-    private static <T extends Block> DeferredBlock<T> registerBlockWithItem(String name, BlockBehaviour.Properties properties) {
-        DeferredBlock<T> block = Dynamos.BLOCKS.register(name, () -> (T) new Block(properties));
-        Dynamos.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static DeferredBlock<Block> registerBlockWithItem(String name, BlockBehaviour.Properties properties) {
+        DeferredBlock<Block> block = Dynamos.BLOCKS.registerSimpleBlock(name, properties);
+        Dynamos.ITEMS.registerSimpleBlockItem(name, block);
+
         TRIVIAL_BLOCKS.add(block);
         REGISTERED_BLOCKS.put(name, block);
         return block;
