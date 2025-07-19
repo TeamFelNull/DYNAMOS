@@ -1,5 +1,6 @@
 package dev.felnull.dynamos.blockentity;
 
+import dev.felnull.dynamos.items.DynamosBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +14,7 @@ public class HelloBlockEntity extends BlockEntity implements TickableBlockEntity
     private int tickCounter = -1;
 
     public HelloBlockEntity(BlockPos pos, BlockState state) {
-        super(DynamosBlockEntityType.HELLO_BLOCK.get(), pos, state); // BlockEntityTypeはあとで登録するにゃ
+        super(DynamosBlocks.getBlockEntityType("hello_block"), pos, state); // BlockEntityTypeはあとで登録するにゃ
     }
 
     public void startDelayedMessage() {
@@ -27,7 +28,7 @@ public class HelloBlockEntity extends BlockEntity implements TickableBlockEntity
             if (tickCounter == 0) {
                 List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(getBlockPos()).inflate(4));
                 for (Player player : players) {
-                    player.displayClientMessage(Component.literal("やっほー☆"),true);
+                    player.displayClientMessage(Component.literal("やっほー☆"),false);
                 }
                 tickCounter = -1; // 1回限り
             }

@@ -23,6 +23,7 @@ public class DynamosCreativeTabEvents {
             for (DeferredBlock<?> block : DynamosBlocks.getTrivialBlocks()) {
                 event.accept(block.get().asItem());
             }
+
             //-------------------------------------------------------------
         }
     }

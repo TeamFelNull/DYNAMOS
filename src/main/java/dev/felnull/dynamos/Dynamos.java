@@ -1,5 +1,6 @@
 package dev.felnull.dynamos;
 
+
 import dev.felnull.dynamos.items.DynamosBlocks;
 import dev.felnull.dynamos.items.DynamosItems;
 import net.minecraft.core.registries.Registries;
@@ -24,12 +25,9 @@ public class Dynamos {
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         BLOCK_ENTITY_TYPES.register(modEventBus);
-        modEventBus.addListener(Dynamos::onRegister);
         DynamosCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         DynamosItems.init();
         DynamosBlocks.init();
-    }
-
-    private static void onRegister(RegisterEvent event) {
+        modEventBus.addListener(DynamosBlocks::initBlockEntityTypes);
     }
 }

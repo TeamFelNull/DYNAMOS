@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 
 public class FurnaceLikeBlockEntity extends AbstractFurnaceBlockEntity {
     public FurnaceLikeBlockEntity(BlockPos pos, BlockState state) {
-        super(DynamosBlockEntityType.CUSTOM_FURNACE.get(), pos, state, RecipeType.SMELTING);
+        super(DynamosBlocks.getBlockEntityType("custom_furnace"), pos, state, RecipeType.SMELTING);
     }
 
     @Override
