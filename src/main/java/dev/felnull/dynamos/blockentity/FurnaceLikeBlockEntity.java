@@ -28,18 +28,7 @@ import javax.annotation.Nullable;
 
 public class FurnaceLikeBlockEntity extends AbstractFurnaceBlockEntity {
     public FurnaceLikeBlockEntity(BlockPos pos, BlockState state) {
-        super(getBlockEntityType(), pos, state, RecipeType.SMELTING);
-    }
-
-
-    @SuppressWarnings("unchecked")
-    private static BlockEntityType<FurnaceLikeBlockEntity> getBlockEntityType() {
-        return (BlockEntityType<FurnaceLikeBlockEntity>)
-                DynamosBlocks.getEntries().stream()
-                        .filter(e -> e.name.equals("custom_furnace"))
-                        .findFirst()
-                        .flatMap(DynamosBlockEntry::getBlockEntityType)
-                        .orElseThrow(() -> new IllegalStateException("BlockEntityType not registered for custom_furnace"));
+        super(DynamosBlockEntityType.CUSTOM_FURNACE.get(), pos, state, RecipeType.SMELTING);
     }
 
     @Override

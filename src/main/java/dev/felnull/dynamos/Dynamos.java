@@ -16,12 +16,14 @@ public class Dynamos {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
-            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Dynamos.MODID);
+
 
     public Dynamos(IEventBus modEventBus, ModContainer modContainer) {
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
+        BLOCK_ENTITY_TYPES.register(modEventBus);
         modEventBus.addListener(Dynamos::onRegister);
         DynamosCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         DynamosItems.init();

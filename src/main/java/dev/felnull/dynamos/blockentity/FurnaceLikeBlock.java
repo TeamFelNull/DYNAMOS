@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 public class FurnaceLikeBlock extends AbstractFurnaceBlock {
     public static final MapCodec<FurnaceLikeBlock> CODEC = simpleCodec(FurnaceLikeBlock::new);
 
+
     public MapCodec<FurnaceLikeBlock> codec() {
         return CODEC;
     }
