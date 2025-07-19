@@ -10,7 +10,6 @@ public enum DynamosItemEnum {
 
     public final String itemName;
     public final Item.Properties properties;
-    private DeferredItem<Item> item;
 
     DynamosItemEnum(String name, Item.Properties properties) {
         this.itemName = name;

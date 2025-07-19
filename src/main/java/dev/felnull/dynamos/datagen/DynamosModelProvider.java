@@ -43,7 +43,6 @@ public class DynamosModelProvider extends ModelProvider {
         // Block（トリビアル）用モデル
         for (DeferredBlock<?> block : DynamosBlocks.getTrivialBlocks()) {
             blockModels.createTrivialBlock(block.get(), TexturedModel.CUBE);
-            // itemModels.generateFlatItem(block.get().asItem(), ModelTemplates.FLAT_ITEM);
         }
 
         // 色付きIngot対応モデル

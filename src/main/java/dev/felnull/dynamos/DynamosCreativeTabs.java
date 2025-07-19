@@ -19,8 +19,6 @@ public class DynamosCreativeTabs {
                             .title(Component.translatable("itemGroup.dynamos"))
                             .icon(() -> new ItemStack(DynamosItems.getItem(DynamosItemEnum.BASIC_GEAR.itemName).get()))
                             .displayItems((parameters, output) -> {
-                              // output.accept(DynamosItems.getItem(DynamosItemEnum.BASIC_GEAR.itemName).get());
-                              // output.accept(DynamosBlocks.getBlock(DynamosBlockEnum.TEST_BLOCK.itemName).get().asItem());
                             })
                             .build()
             );

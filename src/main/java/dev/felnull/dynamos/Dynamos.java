@@ -3,6 +3,7 @@ package dev.felnull.dynamos;
 import dev.felnull.dynamos.items.DynamosBlocks;
 import dev.felnull.dynamos.items.DynamosItems;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -15,6 +16,8 @@ public class Dynamos {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MODID);
 
     public Dynamos(IEventBus modEventBus, ModContainer modContainer) {
         ITEMS.register(modEventBus);
