@@ -95,4 +95,8 @@ public class DynamosBlocks {
                 .orElseThrow(() -> new IllegalStateException("BlockEntityType not registered: " + name));
     }
 
+    public static List<DynamosBlockEntry<?, ?>> getEntries() {
+        return ENTRIES;
+    }
+
 }

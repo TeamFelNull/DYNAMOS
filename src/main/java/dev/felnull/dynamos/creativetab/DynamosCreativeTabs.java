@@ -1,8 +1,7 @@
 package dev.felnull.dynamos.creativetab;
 
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.register.DynamosItemEnum;
-import dev.felnull.dynamos.register.DynamosItems;
+import dev.felnull.dynamos.register.DynamosItemsEnum;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -18,7 +17,7 @@ public class DynamosCreativeTabs {
             CREATIVE_MODE_TABS.register("main", () ->
                     CreativeModeTab.builder()
                             .title(Component.translatable("itemGroup.dynamos"))
-                            .icon(() -> new ItemStack(DynamosItems.getItem(DynamosItemEnum.BASIC_GEAR.itemName).get()))
+                            .icon(() -> new ItemStack(DynamosItemsEnum.BASIC_GEAR.entry.getRegisteredItem().get().asItem()))
                             .displayItems((parameters, output) -> {
                             })
                             .build()

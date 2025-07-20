@@ -3,6 +3,7 @@ package dev.felnull.dynamos.entry;
 import dev.felnull.dynamos.Dynamos;
 import dev.felnull.dynamos.register.DynamosBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     public final String name;                                               //ブロックID
@@ -22,16 +24,20 @@ public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     public final @Nullable BlockEntityFactory<E> blockEntityFactory;        //BlockEntityインスタンス化のラムダ
     public DeferredHolder<Block, T> registeredBlock;                        //登録済みのDeferredHolder<Block>
     public @Nullable BlockEntityType<E> registeredBlockEntityType;          //登録済みのBlockEntityType
+    public final @Nullable Supplier<CreativeModeTab> creativeTab;                   //登録するクリエタブ
 
     public DynamosBlockEntry(String name,
                              Function<BlockBehaviour.Properties, T> blockFactory,
                              BlockBehaviour.Properties properties,
-                             @Nullable BlockEntityFactory<E> blockEntityFactory) {
+                             @Nullable BlockEntityFactory<E> blockEntityFactory,
+                             @Nullable Supplier<CreativeModeTab> creativeTab) {
         this.name = name;
         this.blockFactory = blockFactory;
         this.properties = properties;
         this.blockEntityFactory = blockEntityFactory;
+        this.creativeTab = creativeTab;
     }
+
 
     public void register() {
         this.registeredBlock = Dynamos.BLOCKS.registerBlock(name, blockFactory, properties);
@@ -65,6 +71,11 @@ public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     }
 
     public static DynamosBlockEntry<Block, BlockEntity> simple(String name, BlockBehaviour.Properties props) {
-        return new DynamosBlockEntry<>(name, Block::new, props, null);
+        return new DynamosBlockEntry<>(name, Block::new, props, null, null);
+    }
+
+    // タブあり用（追加）
+    public static DynamosBlockEntry<Block, BlockEntity> simple(String name, BlockBehaviour.Properties props, Supplier<CreativeModeTab> tab) {
+        return new DynamosBlockEntry<>(name, Block::new, props, null, tab);
     }
 }

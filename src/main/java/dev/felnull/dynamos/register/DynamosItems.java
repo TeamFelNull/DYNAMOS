@@ -17,13 +17,11 @@ public class DynamosItems {
     // ここに機能なしのアイテムを追加
     //-------------------------------------------------------------
     public static void init() {
-        for (DynamosItemEnum item : DynamosItemEnum.values()) {
-            registerFlatItem(item.itemName, item.properties, true);
+        for (DynamosItemsEnum item : DynamosItemsEnum.values()) {
+            item.entry.register();
         }
-
         for (DynamosIngot ingot : DynamosIngot.values()) {
-            DeferredItem<Item> item = registerFlatItem(ingot.itemName + "_ingot", new Item.Properties(), false);
-            INGOT_ITEMS.put(ingot, item);
+            ingot.entry.register();
         }
     }
     //-------------------------------------------------------------
