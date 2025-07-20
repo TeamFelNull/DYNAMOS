@@ -2,6 +2,7 @@ package dev.felnull.dynamos.blocks;
 
 import com.mojang.serialization.MapCodec;
 import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosBlocksEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,7 +37,7 @@ public class FurnaceLikeBlock extends AbstractFurnaceLikeBlock {
 
     @Nullable
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_153273_, BlockState p_153274_, BlockEntityType<T> p_153275_) {
-        return createFurnaceTicker(p_153273_, p_153275_, DynamosBlocks.getBlockEntityType("custom_furnace"));
+        return createFurnaceTicker(p_153273_, p_153275_, DynamosBlocksEnum.CUSTOM_FURNACE.getBlockEntityType());
     }
 
     protected void openContainer(Level p_53631_, BlockPos p_53632_, Player p_53633_) {

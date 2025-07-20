@@ -2,6 +2,7 @@ package dev.felnull.dynamos.blocks.misc;
 
 import dev.felnull.dynamos.blocks.TickableBlockEntity;
 import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosBlocksEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +17,7 @@ public class HelloBlockEntity extends BlockEntity implements TickableBlockEntity
     private int tickCounter = -1;
 
     public HelloBlockEntity(BlockPos pos, BlockState state) {
-        super(DynamosBlocks.getBlockEntityType("hello_block"), pos, state); // BlockEntityTypeはあとで登録するにゃ
+        super(DynamosBlocksEnum.HELLO_BLOCK.getBlockEntityType(), pos, state);
     }
 
     public void startDelayedMessage() {

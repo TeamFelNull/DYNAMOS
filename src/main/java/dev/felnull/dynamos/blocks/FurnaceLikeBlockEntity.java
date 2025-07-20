@@ -3,6 +3,7 @@ package dev.felnull.dynamos.blocks;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosBlocksEnum;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 import net.minecraft.core.BlockPos;
@@ -113,7 +114,7 @@ public class FurnaceLikeBlockEntity extends BaseContainerBlockEntity implements 
     public FurnaceLikeBlockEntity(
             BlockPos p_154992_, BlockState p_154993_, RecipeType<? extends AbstractCookingRecipe> p_154994_
     ) {
-        super(DynamosBlocks.getBlockEntityType("custom_furnace"), p_154992_, p_154993_);
+        super(DynamosBlocksEnum.CUSTOM_FURNACE.getBlockEntityType(), p_154992_, p_154993_);
         this.quickCheck = RecipeManager.createCheck((RecipeType<AbstractCookingRecipe>)p_154994_);
         this.recipeType = p_154994_;
     }

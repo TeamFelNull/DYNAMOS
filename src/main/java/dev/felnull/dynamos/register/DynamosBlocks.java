@@ -1,14 +1,9 @@
 package dev.felnull.dynamos.register;
 
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.blocks.FurnaceLikeBlock;
-import dev.felnull.dynamos.blocks.FurnaceLikeBlockEntity;
-import dev.felnull.dynamos.blocks.misc.HelloBlock;
-import dev.felnull.dynamos.blocks.misc.HelloBlockEntity;
 import dev.felnull.dynamos.entry.DynamosBlockEntry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,6 +19,7 @@ public class DynamosBlocks {
 
     private static final List<DeferredBlock<?>> TRIVIAL_BLOCKS = new ArrayList<>();
     private static final Map<String, DeferredHolder<Block, ? extends Block>> REGISTERED_BLOCK = new HashMap<>();
+    private static final List<DynamosBlockEntry<?, ?>> ENTRIES = new ArrayList<>();
     /**
      * 例:
      * new DynamosBlockEntry<Block, HelloBlockEntity>(
@@ -34,26 +30,13 @@ public class DynamosBlocks {
      *             )
      */
     //-------------------------------------------------------------
-    // ここに追加したいブロック情報を追加
+    // ここに追加したい特殊ブロック情報を追加
     //-------------------------------------------------------------
-    private static final List<DynamosBlockEntry<?, ?>> ENTRIES = List.of(
-            DynamosBlockEntry.simple(
-                    "test_block",
-                    BlockBehaviour.Properties.of()
-            ),
-            new DynamosBlockEntry<Block, FurnaceLikeBlockEntity>(
-                    "custom_furnace",
-                    FurnaceLikeBlock::new,
-                    BlockBehaviour.Properties.of().strength(1.0f),
-                    (pos, state) -> new FurnaceLikeBlockEntity(pos, state, RecipeType.SMELTING)
-            ),
-            new DynamosBlockEntry<Block, HelloBlockEntity>(
-                    "hello_block",
-                    HelloBlock::new,
-                    BlockBehaviour.Properties.of().strength(1.0f),
-                    HelloBlockEntity::new
-            )
-    );
+    static  {
+        for(DynamosBlocksEnum enumEntry : DynamosBlocksEnum.values()){
+            ENTRIES.add(enumEntry.entry);
+        }
+    }
     //-------------------------------------------------------------
 
     public static void init() {

@@ -1,6 +1,7 @@
 package dev.felnull.dynamos.blocks.misc;
 
 import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosBlocksEnum;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -32,6 +33,7 @@ public class HelloBlock extends Block implements EntityBlock {
         return new HelloBlockEntity(pos, state);
     }
 
+    //右クリック時処理
     @Override
     protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState state, Level level, @NotNull BlockPos pos,
                                                         @NotNull Player player, @NotNull BlockHitResult hit) {
@@ -57,7 +59,7 @@ public class HelloBlock extends Block implements EntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (!level.isClientSide && type == DynamosBlocks.getBlockEntityType("hello_block") && state.getValue(TICKING)) {
+        if (!level.isClientSide && type == DynamosBlocksEnum.HELLO_BLOCK.getBlockEntityType() && state.getValue(TICKING)) {
             return (lvl, pos, st, be) -> ((HelloBlockEntity) be).tick();
         }
         return null;
