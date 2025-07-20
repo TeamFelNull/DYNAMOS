@@ -1,8 +1,9 @@
 package dev.felnull.dynamos;
 
 
-import dev.felnull.dynamos.items.DynamosBlocks;
-import dev.felnull.dynamos.items.DynamosItems;
+import dev.felnull.dynamos.creativetab.DynamosCreativeTabs;
+import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;

@@ -1,4 +1,4 @@
-package dev.felnull.dynamos.items;
+package dev.felnull.dynamos.register;
 
 import dev.felnull.dynamos.Dynamos;
 import net.minecraft.world.item.Item;

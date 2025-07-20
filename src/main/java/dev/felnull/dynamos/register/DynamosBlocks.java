@@ -1,14 +1,15 @@
-package dev.felnull.dynamos.items;
+package dev.felnull.dynamos.register;
 
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.blockentity.FurnaceLikeBlock;
-import dev.felnull.dynamos.blockentity.FurnaceLikeBlockEntity;
-import dev.felnull.dynamos.blockentity.HelloBlock;
-import dev.felnull.dynamos.blockentity.HelloBlockEntity;
+import dev.felnull.dynamos.blocks.FurnaceLikeBlock;
+import dev.felnull.dynamos.blocks.FurnaceLikeBlockEntity;
+import dev.felnull.dynamos.blocks.misc.HelloBlock;
+import dev.felnull.dynamos.blocks.misc.HelloBlockEntity;
+import dev.felnull.dynamos.entry.DynamosBlockEntry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -18,17 +19,22 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Supplier;
-
-import static dev.felnull.dynamos.Dynamos.BLOCK_ENTITY_TYPES;
 
 public class DynamosBlocks {
 
     private static final List<DeferredBlock<?>> TRIVIAL_BLOCKS = new ArrayList<>();
     private static final Map<String, DeferredHolder<Block, ? extends Block>> REGISTERED_BLOCK = new HashMap<>();
-
+    /**
+     * 例:
+     * new DynamosBlockEntry<Block, HelloBlockEntity>(
+     *                     "hello_block",
+     *                     HelloBlock::new,
+     *                     BlockBehaviour.Properties.of().strength(1.0f),
+     *                     HelloBlockEntity::new
+     *             )
+     */
     //-------------------------------------------------------------
-    // ここに機能なしのブロックを追加
+    // ここに追加したいブロック情報を追加
     //-------------------------------------------------------------
     private static final List<DynamosBlockEntry<?, ?>> ENTRIES = List.of(
             DynamosBlockEntry.simple(
@@ -39,7 +45,7 @@ public class DynamosBlocks {
                     "custom_furnace",
                     FurnaceLikeBlock::new,
                     BlockBehaviour.Properties.of().strength(1.0f),
-                    FurnaceLikeBlockEntity::new
+                    (pos, state) -> new FurnaceLikeBlockEntity(pos, state, RecipeType.SMELTING)
             ),
             new DynamosBlockEntry<Block, HelloBlockEntity>(
                     "hello_block",
@@ -48,7 +54,7 @@ public class DynamosBlocks {
                     HelloBlockEntity::new
             )
     );
-
+    //-------------------------------------------------------------
 
     public static void init() {
         for (DynamosBlockEntry<?, ?> block : ENTRIES) {
@@ -56,12 +62,11 @@ public class DynamosBlocks {
             REGISTERED_BLOCK.put(block.name, block.getRegisteredBlock());
         }
     }
-    //-------------------------------------------------------------
+
     @Deprecated
     private static <T extends Block> DeferredHolder<Block, T> registerBlockWithItem(String name, Function<BlockBehaviour.Properties, T> constructor, BlockBehaviour.Properties properties) {
         DeferredBlock<T> block = Dynamos.BLOCKS.registerBlock(name, constructor, properties);
         Dynamos.ITEMS.registerSimpleBlockItem(name, block);
-
         TRIVIAL_BLOCKS.add(block);
         return block;
     }
@@ -73,6 +78,8 @@ public class DynamosBlocks {
     public static DeferredHolder<Block, ? extends Block> getBlock(String name) {
         return REGISTERED_BLOCK.get(name);
     }
+
+    //BlockEntity登録はBlock登録後に行う必要があるのでRegisterEventで動かすこと!
     public static void initBlockEntityTypes(RegisterEvent event) {
         event.register(Registries.BLOCK_ENTITY_TYPE, helper -> {
             for (DynamosBlockEntry<?, ? extends BlockEntity> block : ENTRIES) {
@@ -84,12 +91,12 @@ public class DynamosBlocks {
 
                 BlockEntityType<? extends BlockEntity> type = new BlockEntityType<>(
                         Objects.requireNonNull(block.blockEntityFactory)::create,
-                        Set.of(blockInstance), // ← 修正点ここ！！
+                        Set.of(blockInstance),
                         false
                 );
 
                 helper.register(ResourceLocation.fromNamespaceAndPath(Dynamos.MODID, block.name), type);
-                block.setBlockEntityType(type); // キャッシュ
+                block.setBlockEntityType(type);
             }
         });
     }

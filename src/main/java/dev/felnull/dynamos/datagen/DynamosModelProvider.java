@@ -1,31 +1,20 @@
 package dev.felnull.dynamos.datagen;
 
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.items.DynamosBlocks;
-import dev.felnull.dynamos.items.DynamosItems;
-import dev.felnull.dynamos.items.DynamosIngot;
-import net.minecraft.client.color.item.Dye;
-import net.minecraft.client.color.item.ItemTintSource;
+import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosItems;
+import dev.felnull.dynamos.register.DynamosIngot;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.nio.file.Path;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class DynamosModelProvider extends ModelProvider {

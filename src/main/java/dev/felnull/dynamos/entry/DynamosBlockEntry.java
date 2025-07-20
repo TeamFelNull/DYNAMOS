@@ -1,9 +1,8 @@
-package dev.felnull.dynamos.items;
+package dev.felnull.dynamos.entry;
 
 import dev.felnull.dynamos.Dynamos;
+import dev.felnull.dynamos.register.DynamosBlocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,18 +13,15 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
-    public final String name;
-    public final Function<BlockBehaviour.Properties, T> blockFactory;
-    public final BlockBehaviour.Properties properties;
-    public final @Nullable BlockEntityFactory<E> blockEntityFactory;
-
-    public DeferredHolder<Block, T> registeredBlock;
-    public @Nullable BlockEntityType<E> registeredBlockEntityType;
+    public final String name;                                               //ブロックID
+    public final Function<BlockBehaviour.Properties, T> blockFactory;       //T extends Block クラスの実装方法
+    public final BlockBehaviour.Properties properties;                      //ブロック情報定義
+    public final @Nullable BlockEntityFactory<E> blockEntityFactory;        //BlockEntityインスタンス化のラムダ
+    public DeferredHolder<Block, T> registeredBlock;                        //登録済みのDeferredHolder<Block>
+    public @Nullable BlockEntityType<E> registeredBlockEntityType;          //登録済みのBlockEntityType
 
     public DynamosBlockEntry(String name,
                              Function<BlockBehaviour.Properties, T> blockFactory,

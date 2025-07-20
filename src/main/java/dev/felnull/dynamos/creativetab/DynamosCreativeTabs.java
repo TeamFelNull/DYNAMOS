@@ -1,7 +1,8 @@
-package dev.felnull.dynamos;
+package dev.felnull.dynamos.creativetab;
 
-import dev.felnull.dynamos.items.DynamosItemEnum;
-import dev.felnull.dynamos.items.DynamosItems;
+import dev.felnull.dynamos.Dynamos;
+import dev.felnull.dynamos.register.DynamosItemEnum;
+import dev.felnull.dynamos.register.DynamosItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;

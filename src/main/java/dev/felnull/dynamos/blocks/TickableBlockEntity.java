@@ -1,4 +1,4 @@
-package dev.felnull.dynamos.blockentity;
+package dev.felnull.dynamos.blocks;
 
 public interface TickableBlockEntity {
     void tick();

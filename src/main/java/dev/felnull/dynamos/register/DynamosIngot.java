@@ -1,4 +1,4 @@
-package dev.felnull.dynamos.items;
+package dev.felnull.dynamos.register;
 
 import java.awt.*;
 

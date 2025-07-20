@@ -1,7 +1,8 @@
-package dev.felnull.dynamos;
+package dev.felnull.dynamos.creativetab;
 
-import dev.felnull.dynamos.items.DynamosBlocks;
-import dev.felnull.dynamos.items.DynamosItems;
+import dev.felnull.dynamos.Dynamos;
+import dev.felnull.dynamos.register.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosItems;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -23,7 +24,6 @@ public class DynamosCreativeTabEvents {
             for (DeferredBlock<?> block : DynamosBlocks.getTrivialBlocks()) {
                 event.accept(block.get().asItem());
             }
-
             //-------------------------------------------------------------
         }
     }

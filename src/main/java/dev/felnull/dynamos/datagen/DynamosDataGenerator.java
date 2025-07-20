@@ -1,9 +1,6 @@
 package dev.felnull.dynamos.datagen;
 
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.items.DynamosBlocks;
-import dev.felnull.dynamos.items.DynamosItems;
-import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 

@@ -1,7 +1,7 @@
-package dev.felnull.dynamos.blockentity;
+package dev.felnull.dynamos.blocks;
 
 import com.mojang.serialization.MapCodec;
-import dev.felnull.dynamos.items.DynamosBlocks;
+import dev.felnull.dynamos.register.DynamosBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,21 +11,16 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractFurnaceBlock;
-import net.minecraft.world.level.block.FurnaceBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
-
-public class FurnaceLikeBlock extends AbstractFurnaceBlock {
+//バニラかまどちょっと改造したもの
+public class FurnaceLikeBlock extends AbstractFurnaceLikeBlock {
     public static final MapCodec<FurnaceLikeBlock> CODEC = simpleCodec(FurnaceLikeBlock::new);
-
 
     public MapCodec<FurnaceLikeBlock> codec() {
         return CODEC;
@@ -36,7 +31,7 @@ public class FurnaceLikeBlock extends AbstractFurnaceBlock {
     }
 
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FurnaceLikeBlockEntity(pos, state); // 登録されてるBEの型で合ってるならOK
+        return new FurnaceLikeBlockEntity(pos, state, RecipeType.SMELTING);
     }
 
     @Nullable

@@ -1,8 +1,6 @@
-package dev.felnull.dynamos.items;
+package dev.felnull.dynamos.register;
 
-import dev.felnull.dynamos.Dynamos;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 public enum DynamosItemEnum {
     BASIC_GEAR("basic_gear", new Item.Properties()),
