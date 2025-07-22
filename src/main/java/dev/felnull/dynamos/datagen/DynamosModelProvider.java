@@ -87,24 +87,29 @@ public class DynamosModelProvider extends ModelProvider {
     public void generateColoredBlockModel(BlockModelGenerators gen, Block block, String textureName, int rgbColor) {
         String modid = BuiltInRegistries.BLOCK.getKey(block).getNamespace();
 
-        // テクスチャマッピング（ベースは共通）
+        // テクスチャマッピング（共通）
         TextureMapping mapping = new TextureMapping()
                 .put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(modid, "block/" + textureName));
 
-        // ティント付きモデルを生成（テンプレート側で tintindex を定義すること）
-        ResourceLocation modelLoc = DynamosModelTemplates.TINTED_CUBE_ALL.create(block, mapping, gen.modelOutput);
+        // ティント付きモデルを生成（TINTED_CUBE_ALL を使う！）
+        ResourceLocation modelLoc = DynamosModelTemplates.TINTED_CUBE_ALL.create(
+                block,
+                mapping,
+                gen.modelOutput
+        );
 
-        // BlockState 出力（単純な1モデル）
+        // BlockState 出力（単一モデル）
         gen.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(modelLoc))
         );
 
-        // アイテムモデルに tint を適用
-        gen.itemModelOutput.accept(block.asItem(),
+        // アイテムモデルにも tint を適用（LAYER1 に色つけ）
+        gen.itemModelOutput.accept(
+                block.asItem(),
                 ItemModelUtils.tintedModel(
                         modelLoc,
-                        ItemModelUtils.constantTint(-1), // LAYER0 は無色
-                        new Dye(rgbColor)                // LAYER1 に色をつける
+                        ItemModelUtils.constantTint(-1), // LAYER0: 無色
+                        new Dye(rgbColor)                // LAYER1: 指定色
                 )
         );
     }
