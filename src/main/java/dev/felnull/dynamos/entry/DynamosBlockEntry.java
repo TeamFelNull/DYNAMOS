@@ -78,4 +78,13 @@ public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     public static DynamosBlockEntry<Block, BlockEntity> simple(String name, BlockBehaviour.Properties props, Supplier<CreativeModeTab> tab) {
         return new DynamosBlockEntry<>(name, Block::new, props, null, tab);
     }
+
+    public static DynamosBlockEntry<Block, BlockEntity> simpleRGB(String name, BlockBehaviour.Properties props) {
+        return new DynamosBlockEntry<>(name, Block::new, props, null, null);
+    }
+
+    // タブあり用（追加）
+    public static DynamosBlockEntry<Block, BlockEntity> simpleRGB(String name, BlockBehaviour.Properties props, Supplier<CreativeModeTab> tab) {
+        return new DynamosBlockEntry<>(name, Block::new, props, null, tab);
+    }
 }

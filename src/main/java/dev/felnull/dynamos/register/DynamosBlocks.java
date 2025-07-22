@@ -20,15 +20,6 @@ public class DynamosBlocks {
     private static final List<DeferredBlock<?>> TRIVIAL_BLOCKS = new ArrayList<>();
     private static final Map<String, DeferredHolder<Block, ? extends Block>> REGISTERED_BLOCK = new HashMap<>();
     private static final List<DynamosBlockEntry<?, ?>> ENTRIES = new ArrayList<>();
-    /**
-     * 例:
-     * new DynamosBlockEntry<Block, HelloBlockEntity>(
-     *                     "hello_block",
-     *                     HelloBlock::new,
-     *                     BlockBehaviour.Properties.of().strength(1.0f),
-     *                     HelloBlockEntity::new
-     *             )
-     */
     //-------------------------------------------------------------
     // ここに追加したい特殊ブロック情報を追加
     //-------------------------------------------------------------

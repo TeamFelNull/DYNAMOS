@@ -16,6 +16,11 @@ public class DynamosDataGenerator {
                         event.getGenerator().getPackOutput(),
                         event.getLookupProvider()
                 )
+
+        );
+        event.getGenerator().addProvider(
+                true,
+                new DynamosLangProvider(event.getGenerator().getPackOutput())
         );
     }
 }

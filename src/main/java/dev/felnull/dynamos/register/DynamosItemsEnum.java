@@ -1,6 +1,7 @@
 package dev.felnull.dynamos.register;
 
 import dev.felnull.dynamos.creativetab.DynamosCreativeTabs;
+import dev.felnull.dynamos.entry.DynamosItemEntry;
 import net.minecraft.world.item.Item;
 
 public enum DynamosItemsEnum {
