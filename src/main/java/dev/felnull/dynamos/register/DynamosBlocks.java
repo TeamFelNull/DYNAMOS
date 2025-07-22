@@ -4,12 +4,14 @@ import dev.felnull.dynamos.Dynamos;
 import dev.felnull.dynamos.entry.DynamosBlockEntry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.util.*;
@@ -18,6 +20,7 @@ import java.util.function.Function;
 public class DynamosBlocks {
 
     private static final List<DeferredBlock<?>> TRIVIAL_BLOCKS = new ArrayList<>();
+    private static final List<DeferredBlock<?>> MATERIAL_BLOCKS = new ArrayList<>();
     private static final Map<String, DeferredHolder<Block, ? extends Block>> REGISTERED_BLOCK = new HashMap<>();
     private static final List<DynamosBlockEntry<?, ?>> ENTRIES = new ArrayList<>();
     //-------------------------------------------------------------
@@ -47,6 +50,17 @@ public class DynamosBlocks {
 
     public static List<DeferredBlock<?>> getTrivialBlocks() {
         return TRIVIAL_BLOCKS;
+    }
+
+    public static List<DeferredBlock<?>> getMaterialBlocks() {
+        return MATERIAL_BLOCKS;
+    }
+
+    public static void addTrivialBlock(DeferredBlock<Block> deferredBlock) {
+        TRIVIAL_BLOCKS.add(deferredBlock);
+    }
+    public static void addMaterialBlock(DeferredBlock<Block> deferredBlock) {
+        MATERIAL_BLOCKS.add(deferredBlock);
     }
 
     public static DeferredHolder<Block, ? extends Block> getBlock(String name) {

@@ -18,6 +18,12 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
+
+    public enum BlockCategory {
+        NORMAL,
+        MATERIAL_BLOCK
+    }
+
     public final String name;                                               //ブロックID
     public final Function<BlockBehaviour.Properties, T> blockFactory;       //T extends Block クラスの実装方法
     public final BlockBehaviour.Properties properties;                      //ブロック情報定義
@@ -25,24 +31,32 @@ public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     public DeferredHolder<Block, T> registeredBlock;                        //登録済みのDeferredHolder<Block>
     public @Nullable BlockEntityType<E> registeredBlockEntityType;          //登録済みのBlockEntityType
     public final @Nullable Supplier<CreativeModeTab> creativeTab;                   //登録するクリエタブ
+    public final BlockCategory blockCategory;
+
 
     public DynamosBlockEntry(String name,
                              Function<BlockBehaviour.Properties, T> blockFactory,
                              BlockBehaviour.Properties properties,
                              @Nullable BlockEntityFactory<E> blockEntityFactory,
-                             @Nullable Supplier<CreativeModeTab> creativeTab) {
+                             @Nullable Supplier<CreativeModeTab> creativeTab,
+                             BlockCategory blockCategory) {
         this.name = name;
         this.blockFactory = blockFactory;
         this.properties = properties;
         this.blockEntityFactory = blockEntityFactory;
         this.creativeTab = creativeTab;
+        this.blockCategory = blockCategory;
     }
 
-
+    @SuppressWarnings("unchecked")
     public void register() {
         this.registeredBlock = Dynamos.BLOCKS.registerBlock(name, blockFactory, properties);
         Dynamos.ITEMS.registerSimpleBlockItem(name, registeredBlock::get);
-        DynamosBlocks.getTrivialBlocks().add((DeferredBlock<?>) registeredBlock);
+        switch (blockCategory) {
+            case NORMAL -> DynamosBlocks.addTrivialBlock((DeferredBlock<Block>) registeredBlock);
+            case MATERIAL_BLOCK -> DynamosBlocks.addMaterialBlock((DeferredBlock<Block>) registeredBlock);
+        }
+
     }
 
 
@@ -71,20 +85,20 @@ public class DynamosBlockEntry<T extends Block, E extends BlockEntity> {
     }
 
     public static DynamosBlockEntry<Block, BlockEntity> simple(String name, BlockBehaviour.Properties props) {
-        return new DynamosBlockEntry<>(name, Block::new, props, null, null);
+        return new DynamosBlockEntry<>(name, Block::new, props, null, null, BlockCategory.NORMAL);
     }
 
     // タブあり用（追加）
     public static DynamosBlockEntry<Block, BlockEntity> simple(String name, BlockBehaviour.Properties props, Supplier<CreativeModeTab> tab) {
-        return new DynamosBlockEntry<>(name, Block::new, props, null, tab);
+        return new DynamosBlockEntry<>(name, Block::new, props, null, tab, BlockCategory.NORMAL);
     }
 
     public static DynamosBlockEntry<Block, BlockEntity> simpleRGB(String name, BlockBehaviour.Properties props) {
-        return new DynamosBlockEntry<>(name, Block::new, props, null, null);
+        return new DynamosBlockEntry<>(name, Block::new, props, null, null, BlockCategory.MATERIAL_BLOCK);
     }
 
     // タブあり用（追加）
     public static DynamosBlockEntry<Block, BlockEntity> simpleRGB(String name, BlockBehaviour.Properties props, Supplier<CreativeModeTab> tab) {
-        return new DynamosBlockEntry<>(name, Block::new, props, null, tab);
+        return new DynamosBlockEntry<>(name, Block::new, props, null, tab, BlockCategory.MATERIAL_BLOCK);
     }
 }

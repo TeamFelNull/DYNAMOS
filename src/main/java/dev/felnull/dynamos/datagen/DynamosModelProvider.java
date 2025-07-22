@@ -10,18 +10,25 @@ import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.block.model.BlockModelDefinition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+
+import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 public class DynamosModelProvider extends ModelProvider {
 
@@ -43,9 +50,9 @@ public class DynamosModelProvider extends ModelProvider {
 
         // 色付きIngot対応モデル
         for (DynamosIngot ingot : DynamosIngot.values()) {
-            DeferredItem<Item> item = DynamosItems.getIngotItem(ingot);
-            generateColoredItemModel(itemModels, item.get(), "ingot_base", ingot.color.getRGB());
-            generateColoredItemModel();
+            generateColoredItemModel(itemModels, ingot.entry.registeredItem.get(), "ingot_base", ingot.color.getRGB());
+            generateColoredItemModel(itemModels, ingot.getNugget().registeredItem.get(), "nugget_base", ingot.color.getRGB());
+            generateColoredBlockModel(blockModels,ingot.getBlock().registeredBlock.get(), "material_block_base", ingot.color.getRGB());
         }
 
     }
@@ -76,4 +83,30 @@ public class DynamosModelProvider extends ModelProvider {
                 )
         );
     }
+
+    public void generateColoredBlockModel(BlockModelGenerators gen, Block block, String textureName, int rgbColor) {
+        String modid = BuiltInRegistries.BLOCK.getKey(block).getNamespace();
+
+        // テクスチャマッピング（ベースは共通）
+        TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.ALL, ResourceLocation.fromNamespaceAndPath(modid, "block/" + textureName));
+
+        // ティント付きモデルを生成（テンプレート側で tintindex を定義すること）
+        ResourceLocation modelLoc = DynamosModelTemplates.TINTED_CUBE_ALL.create(block, mapping, gen.modelOutput);
+
+        // BlockState 出力（単純な1モデル）
+        gen.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(modelLoc))
+        );
+
+        // アイテムモデルに tint を適用
+        gen.itemModelOutput.accept(block.asItem(),
+                ItemModelUtils.tintedModel(
+                        modelLoc,
+                        ItemModelUtils.constantTint(-1), // LAYER0 は無色
+                        new Dye(rgbColor)                // LAYER1 に色をつける
+                )
+        );
+    }
+
 }

@@ -22,14 +22,16 @@ public enum DynamosBlocksEnum {
             FurnaceLikeBlock::new,
             BlockBehaviour.Properties.of(),
             (pos, state) -> new FurnaceLikeBlockEntity(pos, state, RecipeType.SMELTING),
-            DynamosCreativeTabs.MAIN_TAB
+            DynamosCreativeTabs.MAIN_TAB,
+            DynamosBlockEntry.BlockCategory.NORMAL
     )),
     HELLO_BLOCK(new DynamosBlockEntry<Block, HelloBlockEntity>(
             "hello_block",
             HelloBlock::new,
             BlockBehaviour.Properties.of().strength(1.0f),
             HelloBlockEntity::new,
-            DynamosCreativeTabs.MAIN_TAB
+            DynamosCreativeTabs.MAIN_TAB,
+            DynamosBlockEntry.BlockCategory.NORMAL
     ));
 
     public final DynamosBlockEntry<?, ?> entry;
