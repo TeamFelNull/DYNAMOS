@@ -2,6 +2,7 @@ package dev.felnull.dynamos;
 
 
 import dev.felnull.dynamos.creativetab.DynamosCreativeTabs;
+import dev.felnull.dynamos.datagen.DynamosDataGenerator;
 import dev.felnull.dynamos.register.DynamosBlocks;
 import dev.felnull.dynamos.register.DynamosItems;
 import net.minecraft.core.registries.Registries;
@@ -30,5 +31,8 @@ public class Dynamos {
         DynamosItems.init();
         DynamosBlocks.init();
         modEventBus.addListener(DynamosBlocks::initBlockEntityTypes);
+        modEventBus.addListener(DynamosDataGenerator::gatherClientData);
+        modEventBus.addListener(DynamosDataGenerator::gatherServerData);
     }
+
 }

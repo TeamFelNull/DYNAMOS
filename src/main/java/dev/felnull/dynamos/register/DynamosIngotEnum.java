@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.Block;
 
 import java.awt.*;
 
-public enum DynamosIngot {
-    IRIDIUM("iridium", new Color(0xFF0000)),
-    TIN("tin", new Color(0xC2C2C2));
+public enum DynamosIngotEnum {
+    IRIDIUM("iridium", new Color(0xa0d0ff)),
+    TIN("tin", new Color(0xD2D2D2));
 
     public final String itemName;
     public final Color color;
@@ -18,7 +18,7 @@ public enum DynamosIngot {
     private DynamosItemEntry<Item> nugget;
     private DynamosBlockEntry<Block, ?> block;
 
-    DynamosIngot(String name, Color color) {
+    DynamosIngotEnum(String name, Color color) {
         this.itemName = name;
         this.color = color;
         this.entry = DynamosItemEntry.simpleIngot(name + "_ingot", new Item.Properties(), DynamosCreativeTabs.MAIN_TAB);

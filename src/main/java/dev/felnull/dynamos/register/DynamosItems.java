@@ -27,7 +27,7 @@ public class DynamosItems {
         for(DynamosItemsEnum enumEntry : DynamosItemsEnum.values()){
             ENTRIES.add(enumEntry.entry);
         }
-        for(DynamosIngot enumEntry : DynamosIngot.values()){
+        for(DynamosIngotEnum enumEntry : DynamosIngotEnum.values()){
             ENTRIES.add(enumEntry.entry);
             autoGenerateIngotFamily(enumEntry);
         }
@@ -84,7 +84,7 @@ public class DynamosItems {
         NUGGET_ITEMS.add(deferredItem);
     }
 
-    public static void autoGenerateIngotFamily(DynamosIngot ingot) {
+    public static void autoGenerateIngotFamily(DynamosIngotEnum ingot) {
         String base = ingot.itemName;
 
         // Nugget

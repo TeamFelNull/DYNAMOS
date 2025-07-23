@@ -1,6 +1,6 @@
 package dev.felnull.dynamos.datagen;
 
-import dev.felnull.dynamos.register.DynamosIngot;
+import dev.felnull.dynamos.register.DynamosIngotEnum;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -14,7 +14,7 @@ public class DynamosLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         // アイテム名
-        for (DynamosIngot ingot : DynamosIngot.values()) {
+        for (DynamosIngotEnum ingot : DynamosIngotEnum.values()) {
             Item item = ingot.entry.registeredItem.get();
             String name = WordUtils.capitalizeFully(ingot.itemName.replace("_", " "));
             add(item, name + " Ingot");

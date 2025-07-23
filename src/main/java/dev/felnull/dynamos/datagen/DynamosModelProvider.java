@@ -4,17 +4,13 @@ package dev.felnull.dynamos.datagen;
 import dev.felnull.dynamos.Dynamos;
 import dev.felnull.dynamos.register.DynamosBlocks;
 import dev.felnull.dynamos.register.DynamosItems;
-import dev.felnull.dynamos.register.DynamosIngot;
+import dev.felnull.dynamos.register.DynamosIngotEnum;
 import net.minecraft.client.color.item.Dye;
-import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.*;
-import net.minecraft.client.renderer.block.model.BlockModelDefinition;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -24,11 +20,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
-
-import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 public class DynamosModelProvider extends ModelProvider {
 
@@ -38,6 +31,7 @@ public class DynamosModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        TintedTextureGenerator.generateAll();
         // 無地のFlatアイテム
         for (DeferredItem<?> item : DynamosItems.getFlatItems()) {
             itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
@@ -49,10 +43,10 @@ public class DynamosModelProvider extends ModelProvider {
         }
 
         // 色付きIngot対応モデル
-        for (DynamosIngot ingot : DynamosIngot.values()) {
+        for (DynamosIngotEnum ingot : DynamosIngotEnum.values()) {
             generateColoredItemModel(itemModels, ingot.entry.registeredItem.get(), "ingot_base", ingot.color.getRGB());
             generateColoredItemModel(itemModels, ingot.getNugget().registeredItem.get(), "nugget_base", ingot.color.getRGB());
-            generateColoredBlockModel(blockModels,ingot.getBlock().registeredBlock.get(), "material_block_base", ingot.color.getRGB());
+            generateColoredBlockModel(blockModels,ingot.getBlock().registeredBlock.get(),  ingot.itemName + "_block_tinted");
         }
 
     }
@@ -83,7 +77,7 @@ public class DynamosModelProvider extends ModelProvider {
                 )
         );
     }
-
+    /**
     public void generateColoredBlockModel(BlockModelGenerators gen, Block block, String textureName, int rgbColor) {
         String modid = BuiltInRegistries.BLOCK.getKey(block).getNamespace();
 
@@ -111,6 +105,31 @@ public class DynamosModelProvider extends ModelProvider {
                         ItemModelUtils.constantTint(-1), // LAYER0: 無色
                         new Dye(rgbColor)                // LAYER1: 指定色
                 )
+        );
+    }
+     GUI上でtintが反映されない問題のため未使用
+     **/
+
+    public void generateColoredBlockModel(BlockModelGenerators gen, Block block, String textureName) {
+        ResourceLocation blockLoc = BuiltInRegistries.BLOCK.getKey(block);
+        String modid = blockLoc.getNamespace();
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(modid, "block/" + textureName);
+        // ブロックモデル登録（cube_all）
+        ResourceLocation modelLoc = new ModelTemplate(
+                Optional.of(ResourceLocation.fromNamespaceAndPath("minecraft", "block/cube_all")), // 親にバニラのcube_all
+                Optional.empty(),                                                 // transformなし
+                TextureSlot.ALL                                                   // テクスチャスロット ALL に対応
+        ).create(blockLoc, TextureMapping.cube(texture), gen.modelOutput);
+
+        // BlockState 登録（モデルを1つ指定）
+        gen.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(modelLoc))
+        );
+
+        // Itemモデル登録（Unbaked として plainModel を使う）
+        gen.itemModelOutput.accept(
+                block.asItem(),
+                ItemModelUtils.plainModel(modelLoc) // block model を親にした普通の item model
         );
     }
 
