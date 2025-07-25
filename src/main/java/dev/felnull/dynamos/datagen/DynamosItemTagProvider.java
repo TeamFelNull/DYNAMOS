@@ -24,18 +24,18 @@ public class DynamosItemTagProvider extends ItemTagsProvider {
 
             // ingot 登録
             tag(tagRL("ingots/" + id))
-                    .add(ingot.entry.registeredItem.get());
+                    .add(ingot.getRegisteredIngot());
 
             // nugget が存在すれば登録
             if (ingot.getNugget() != null) {
                 tag(tagRL("nuggets/" + id))
-                        .add(ingot.getNugget().registeredItem.get());
+                        .add(ingot.getRegisteredNugget());
             }
 
             // block が存在すれば登録（Block → Item 変換に注意）
             if (ingot.getBlock() != null) {
                 tag(tagRL("storage_blocks/" + id))
-                        .add(ingot.getBlock().registeredBlock.get().asItem());
+                        .add(ingot.getRegisteredBlock().asItem());
             }
         }
     }

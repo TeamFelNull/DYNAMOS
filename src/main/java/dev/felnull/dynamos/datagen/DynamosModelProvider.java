@@ -31,7 +31,6 @@ public class DynamosModelProvider extends ModelProvider {
 
     @Override
     protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
-        TintedTextureGenerator.generateAll();
         // 無地のFlatアイテム
         for (DeferredItem<?> item : DynamosItems.getFlatItems()) {
             itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);

@@ -4,6 +4,7 @@ import dev.felnull.dynamos.creativetab.DynamosCreativeTabs;
 import dev.felnull.dynamos.entry.DynamosBlockEntry;
 import dev.felnull.dynamos.entry.DynamosItemEntry;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 
 import java.awt.*;
@@ -38,5 +39,17 @@ public enum DynamosIngotEnum {
 
     public DynamosItemEntry<Item> getNugget() {
         return nugget;
+    }
+
+    public Block getRegisteredBlock() {
+        return block.getRegisteredBlock().get();
+    }
+
+    public Item getRegisteredIngot() {
+        return entry.getRegisteredItem().get();
+    }
+
+    public Item getRegisteredNugget() {
+        return nugget.getRegisteredItem().get();
     }
 }
