@@ -16,13 +16,13 @@ public class DynamosDataGenerator {
 
         gen.addProvider(true, new DynamosLangProvider(output));
         gen.addProvider(true, new DynamosModelProvider(output, event.getLookupProvider()));
-        gen.addProvider(true, new DynamosRecipeDataProvider(output));
+
     }
 
     public static void gatherServerData(GatherDataEvent.Server event) {
         var gen = event.getGenerator();
         var output = gen.getPackOutput();
-
-
+        gen.addProvider(true, new DynamosRecipeDataProvider(output));
+        gen.addProvider(true, new DynamosItemTagProvider(output, event.getLookupProvider()));
     }
 }

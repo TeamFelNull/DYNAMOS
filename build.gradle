@@ -61,6 +61,13 @@ neoForge {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
+        data {
+            programArguments.addAll '--mod', project.mod_id,
+                    '--all',
+                    '--output', file('src/generated/resources/').getAbsolutePath(), // ← ここ！
+                    '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
         // applies to all the run configs above
         configureEach {
             // Recommended logging data for a userdev environment

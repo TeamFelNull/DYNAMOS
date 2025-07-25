@@ -25,6 +25,7 @@ import java.util.concurrent.CompletableFuture;
 public class DynamosRecipeDataProvider implements DataProvider {
 
     private final PackOutput output;
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public DynamosRecipeDataProvider(PackOutput output) {
         this.output = output;
@@ -77,14 +78,22 @@ public class DynamosRecipeDataProvider implements DataProvider {
     }
 
     private void saveRecipe(CachedOutput cache, JsonObject recipe, String name) {
-        Path path = output.getOutputFolder()
-                .resolve("data")
-                .resolve(Dynamos.MODID)
-                .resolve("recipes")
-                .resolve(name + ".json");
-
-        DataProvider.saveStable(cache, recipe, path);
-        System.out.println("[DynamosRecipeDataProvider] Saved recipe: " + path);
+        //なぜか生成物が消えるのでmainに直生成するためにコメント化
+//        Path path = output.getOutputFolder()
+//                .resolve("data")
+//                .resolve(Dynamos.MODID)
+//                .resolve("recipe") // ← このまま使うなら後で recipes に移動することを忘れずに
+//                .resolve(name + ".json");
+        Path path = Paths.get("../src", "main", "resources", "data", Dynamos.MODID, "recipe", name + ".json");
+        try {
+            Files.createDirectories(path.getParent()); // フォルダ生成
+            Files.write(path, recipe.toString().getBytes(StandardCharsets.UTF_8)); // 強制書き込み
+            System.out.println("Writing to: " + path.toAbsolutePath());
+            System.out.println("📄 Absolute output path: " + path.toAbsolutePath());
+            System.out.println("[DynamosRecipeDataProvider] FORCED write: " + path);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write recipe: " + name, e);
+        }
     }
 
     @Override
