@@ -46,5 +46,8 @@ public enum DynamosBlocksEnum {
                 .orElseThrow(() -> new IllegalStateException("Not registered: " + entry.name));
     }
 
+    public Block getBlock() {
+        return this.entry.registeredBlock.get();
+    }
 
 }

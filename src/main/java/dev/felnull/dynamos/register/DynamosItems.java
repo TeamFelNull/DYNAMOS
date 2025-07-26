@@ -6,6 +6,7 @@ import dev.felnull.dynamos.entry.DynamosBlockEntry;
 import dev.felnull.dynamos.entry.DynamosItemEntry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredItem;
 
@@ -93,7 +94,7 @@ public class DynamosItems {
         ingot.setNugget(nugget);
 
         // Block
-        DynamosBlockEntry<Block, ?> block = DynamosBlockEntry.simpleRGB(base + "_block", BlockBehaviour.Properties.of().strength(3f), DynamosCreativeTabs.MAIN_TAB);
+        DynamosBlockEntry<Block, ?> block = DynamosBlockEntry.simpleRGB(base + "_block", BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().sound(SoundType.IRON), DynamosCreativeTabs.MAIN_TAB);
         DynamosBlocks.getEntries().add(block);
         ingot.setBlock(block);
     }
