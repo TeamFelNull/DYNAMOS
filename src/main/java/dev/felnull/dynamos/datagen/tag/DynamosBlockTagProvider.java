@@ -11,6 +11,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,7 +21,7 @@ public class DynamosBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         for (DynamosIngotEnum ingot : DynamosIngotEnum.values()) {
             if (ingot.getBlock() != null) {
                 tag(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -29,9 +30,5 @@ public class DynamosBlockTagProvider extends BlockTagsProvider {
                         .add(ingot.getRegisteredBlock());
             }
         }
-    }
-
-    private static TagKey<Block> tagRL(String path) {
-        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", path));
     }
 }
