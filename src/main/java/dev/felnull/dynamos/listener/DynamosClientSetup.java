@@ -1,8 +1,8 @@
 package dev.felnull.dynamos.listener;
 
 import dev.felnull.dynamos.Dynamos;
-import dev.felnull.dynamos.entry.DynamosBlockEntry;
-import dev.felnull.dynamos.register.DynamosIngotEnum;
+import dev.felnull.dynamos.core.entry.DynamosBlockEntry;
+import dev.felnull.dynamos.enums.DynamosIngotEnum;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -26,5 +26,8 @@ public class DynamosClientSetup {
                 );
             }
         }
+
+        // event.register((blockState, blockAndTintGetter, blockPos, i) -> 0x114514, DynamosBlocksEnum.TEST2_BLOCK.getBlock());
+
     }
 }
