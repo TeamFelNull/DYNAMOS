@@ -110,6 +110,7 @@ public class StandAloneElectricFurnaceBE extends BlockEntity implements IMachine
 
     @Override
     public AbstractContainerMenu createMenu(int syncId, Inventory playerInventory, Player player) {
-        return new ElectricFurnaceMenu(syncId, playerInventory, this);
+      //  return new ElectricFurnaceMenu(syncId, playerInventory, this);
+        return null;
     }
 }

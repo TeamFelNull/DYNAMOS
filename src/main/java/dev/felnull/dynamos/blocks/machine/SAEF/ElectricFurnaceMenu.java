@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ResultSlot;
 import net.minecraft.world.inventory.Slot;
 
+/*
 public class ElectricFurnaceMenu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
 
@@ -29,4 +30,4 @@ public class ElectricFurnaceMenu extends AbstractContainerMenu {
     public boolean stillValid(Player player) {
         return stillValid(access, player, DynamosBlocksEnum.SAEF.getBlock());
     }
-}
+}*/
