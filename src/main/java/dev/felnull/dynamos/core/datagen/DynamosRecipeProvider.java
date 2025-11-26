@@ -9,9 +9,13 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -29,10 +33,25 @@ public class DynamosRecipeProvider extends RecipeProvider {
     @Override
     protected void buildRecipes() {
         logger.info("Registering recipes now...");
-        for(DynamosIngotEnum ingot: DynamosIngotEnum.values()) {
+        for (DynamosIngotEnum ingot : DynamosIngotEnum.values()) {
             registerMaterialRecipe(ingot);
             logger.info("Registered recipe for {}", ingot.name());
         }
+
+
+        shaped(RecipeCategory.MISC, Items.APPLE, 10)
+                .define('I', Items.DIAMOND)
+                .define('K', Items.REDSTONE)
+                .define('S', Items.APPLE)
+                .pattern("IKS")
+                .pattern("III")
+                .pattern("III")
+                .unlockedBy("has_diamond", has(Items.DIAMOND))
+                .save(output, getRecipeKey("create_apple_form_diamond"));
+
+        // this.cookRecipes("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+
+
         logger.info("Recipe registration completed!");
     }
 
@@ -67,7 +86,7 @@ public class DynamosRecipeProvider extends RecipeProvider {
             ItemLike outputItem,
             ItemLike ingredientItem
     ) {
-        return shaped(recipeCategory,outputItem)
+        return shaped(recipeCategory, outputItem)
                 .define('#', ingredientItem)
                 .pattern("###")
                 .pattern("###")

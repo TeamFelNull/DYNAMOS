@@ -6,6 +6,8 @@ import dev.felnull.dynamos.block.machine.SAEF.StandAloneElectricFurnace;
 import dev.felnull.dynamos.block.machine.SAEF.StandAloneElectricFurnaceBE;
 import dev.felnull.dynamos.block.misc.HelloBlock;
 import dev.felnull.dynamos.block.misc.HelloBlockEntity;
+import dev.felnull.dynamos.block.misc.brokenchest.BrokenChestBlock;
+import dev.felnull.dynamos.block.misc.brokenchest.BrokenChestEntity;
 import dev.felnull.dynamos.core.creativetab.DynamosCreativeTabs;
 import dev.felnull.dynamos.core.entry.DynamosBlockEntry;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -38,6 +40,14 @@ public enum DynamosBlocksEnum {
             "sa_electric_furnace",
             StandAloneElectricFurnace::new,
             StandAloneElectricFurnaceBE::new,
+            BlockBehaviour.Properties.of().strength(1.0f),
+            DynamosCreativeTabs.MAIN_TAB,
+            DynamosBlockEntry.BlockCategory.NORMAL
+    )),
+    BROKEN_CHEST(new DynamosBlockEntry<Block, BrokenChestEntity>(
+            "broken_chest",
+            BrokenChestBlock::new,
+            BrokenChestEntity::new,
             BlockBehaviour.Properties.of().strength(1.0f),
             DynamosCreativeTabs.MAIN_TAB,
             DynamosBlockEntry.BlockCategory.NORMAL

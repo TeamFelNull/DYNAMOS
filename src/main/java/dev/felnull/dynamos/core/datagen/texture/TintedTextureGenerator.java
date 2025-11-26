@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 /*
-
+//テクスチャ自動生成君
 public class TintedTextureGenerator implements DataProvider {
     private final PackOutput output;
 

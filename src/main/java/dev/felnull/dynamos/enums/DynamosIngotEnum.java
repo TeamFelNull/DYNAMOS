@@ -10,7 +10,9 @@ import java.awt.*;
 
 public enum DynamosIngotEnum {
     IRIDIUM("iridium", new Color(0xa0d0ff)),
-    TIN("tin", new Color(0xD2D2D2));
+    TIN("tin", new Color(0xD2D2D2)),
+    BRONZE("bronze", new Color(0xA83911)),
+    IKISUGI("ikisugi", new Color(0xD46224));
 
     public final String itemName;
     public final Color color;

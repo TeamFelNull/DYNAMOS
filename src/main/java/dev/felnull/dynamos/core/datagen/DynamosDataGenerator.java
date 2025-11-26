@@ -18,7 +18,6 @@ public class DynamosDataGenerator {
 
         gen.addProvider(true, new DynamosLangProvider(output));
         gen.addProvider(true, new DynamosModelProvider(output, event.getLookupProvider()));
-        //gen.addProvider(true, new TintedTextureGenerator(output));
         event.createProvider(DynamosRecipeProvider.Runner::new);
         gen.addProvider(true, new DynamosItemTagProvider(output, event.getLookupProvider()));
         gen.addProvider(true, new DynamosBlockTagProvider(output, event.getLookupProvider()));

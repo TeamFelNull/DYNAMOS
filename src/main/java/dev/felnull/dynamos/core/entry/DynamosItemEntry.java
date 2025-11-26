@@ -33,6 +33,7 @@ public class DynamosItemEntry<T extends Item> {
         this.creativeTab = creativeTab;
         this.itemCategory = itemCategory;
     }
+
     @SuppressWarnings("unchecked")
     public void register() {
         registeredItem = Dynamos.ITEMS.registerItem(name, factory, properties);
@@ -64,11 +65,16 @@ public class DynamosItemEntry<T extends Item> {
     public static DynamosItemEntry<Item> simpleIngot(String name, Item.Properties properties, Supplier<CreativeModeTab> tab) {
         return new DynamosItemEntry<>(name, Item::new, properties, tab, ItemCategory.INGOT);
     }
+
     public static DynamosItemEntry<Item> simpleNugget(String name, Item.Properties properties) {
         return new DynamosItemEntry<>(name, Item::new, properties, null, ItemCategory.NUGGET);
     }
 
     public static DynamosItemEntry<Item> simpleNugget(String name, Item.Properties properties, Supplier<CreativeModeTab> tab) {
         return new DynamosItemEntry<>(name, Item::new, properties, tab, ItemCategory.NUGGET);
+    }
+
+    public static <U extends Item> DynamosItemEntry<U> customItem(String name, Function<Item.Properties, U> factory, Item.Properties properties, Supplier<CreativeModeTab> tab) {
+        return new DynamosItemEntry<>(name, factory, properties, tab, ItemCategory.FLAT);
     }
 }
