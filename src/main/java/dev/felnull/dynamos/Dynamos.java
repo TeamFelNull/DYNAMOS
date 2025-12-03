@@ -5,6 +5,7 @@ import dev.felnull.dynamos.core.creativetab.DynamosCreativeTabs;
 import dev.felnull.dynamos.core.datagen.DynamosDataGenerator;
 import dev.felnull.dynamos.core.register.DynamosBlocks;
 import dev.felnull.dynamos.core.register.DynamosItems;
+import dev.felnull.dynamos.menu.DynamosMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -33,6 +34,7 @@ public class Dynamos {
         modEventBus.addListener(DynamosBlocks::initBlockEntityTypes);
         modEventBus.addListener(DynamosDataGenerator::gatherClientData);
         modEventBus.addListener(DynamosDataGenerator::gatherServerData);
+        DynamosMenu.register(modEventBus);
     }
 
 }

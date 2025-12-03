@@ -1,4 +1,4 @@
-package dev.felnull.dynamos.block.misc;
+package dev.felnull.dynamos.block.misc.helloblock;
 
 import dev.felnull.dynamos.enums.DynamosBlocksEnum;
 import net.minecraft.core.BlockPos;
